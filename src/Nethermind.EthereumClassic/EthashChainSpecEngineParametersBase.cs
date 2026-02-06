@@ -19,8 +19,12 @@ namespace Nethermind.EthereumClassic;
 /// <summary>
 /// Base chain spec engine parameters for Ethash-based chains.
 /// This is a standalone copy to avoid dependency on Nethermind.Consensus.Ethash.
+/// Does NOT implement IChainSpecEngineParameters directly to prevent Nethermind's
+/// TypeDiscovery from registering it as a separate engine, which would conflict
+/// with Nethermind's built-in EthashChainSpecEngineParameters.
+/// Only the derived EtchashChainSpecEngineParameters implements the interface.
 /// </summary>
-public class EthashChainSpecEngineParametersBase : IChainSpecEngineParameters
+public class EthashChainSpecEngineParametersBase
 {
     public virtual string? EngineName => SealEngineType;
     public virtual string? SealEngineType => Core.SealEngineType.Ethash;
